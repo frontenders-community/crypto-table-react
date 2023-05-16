@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import AppTable from "./components/AppTable";
 import { Coin } from "./models/coin";
@@ -9,6 +9,7 @@ function App() {
   const [curPage, setCurPage] = useState(1);
   const [limit, setLimit] = useState(50);
   const [totalPages, setTotalPages] = useState(0);
+  const [inputPage, setInputPage] = useState("");
 
   const baseApiUrl = "https://api.coinranking.com/v2";
 
@@ -32,6 +33,7 @@ function App() {
       setCoins(result.data.coins);
       setTotal(result.data.stats.total);
       setTotalPages(Math.ceil(result.data.stats.total / limit));
+      setInputPage(curPage.toString());
     } catch (error) {
       console.log(error);
     }
@@ -44,10 +46,17 @@ function App() {
   function handlePrevClick() {
     setCurPage(curPage - 1);
   }
-  function handlePageChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const pageNum = parseInt(input.value);
-    setCurPage(pageNum);
+
+  function handlePageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const pageNum = event.target.value;
+    setInputPage(pageNum);
+  }
+
+  function handlePageChangeSubmit(event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      const pageToFetch = parseInt(inputPage);
+      if (pageToFetch > 0 && pageToFetch <= totalPages) setCurPage(pageToFetch);
+    }
   }
 
   return (
@@ -61,7 +70,12 @@ function App() {
       <button disabled={curPage === 1} onClick={handlePrevClick}>
         Prev
       </button>
-      <input onChange={handlePageChange} type="number" value={curPage} />
+      <input
+        onChange={handlePageChange}
+        onKeyUp={handlePageChangeSubmit}
+        type="number"
+        value={inputPage}
+      />
       <button disabled={curPage === totalPages} onClick={handleNextClick}>
         Next
       </button>
