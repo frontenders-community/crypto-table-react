@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+:root {
+  --primary: #02225b;
+  --primary-dark: #03123a;
+  --primary-light: #0057c8;
+  --secondary: #20c265;
+  --gray: #1c2a4e;
+  --gray-light: #8794b5;
+  --white: #fff;
+
+  --sidebar-width: 60px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  color: var(--white);
+  font-family: "Open Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+/* Layout */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--primary-dark);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary);
+}
+
+.main {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  overflow-y: hidden;
+}
+
+/*  Header */
+.header-logo {
+  background-color: var(--primary-light);
+  width: var(--sidebar-width);
+  height: var(--sidebar-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.header-content {
+  flex-grow: 1;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.header-actions {
+  font-size: 1.4rem;
+}
+
+/* Main */
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--primary);
+}
+
+.sidebar-nav li {
+  height: var(--sidebar-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.sidebar-nav li.active {
+  background-color: var(--primary-light);
+}
+
+/* Content */
+.main-content {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.content-header {
+  padding: 1rem 1rem;
+  border-bottom: 1px solid var(--gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content-main {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.per-page-input {
+    width: 60px;
+    margin-left: 1rem;
+}
+
+/* Table */
+
+.icon {
+  width: 2rem;
+}
+
+/* Inputs */
+.form-input {
+    background-color: transparent;
+    color: var(--gray-light);
+    padding: .5rem;
+    border: 1px solid var(--gray-light);
+    border-radius: 5px;
+}

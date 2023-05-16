@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AppTable from "./components/AppTable";
 import { Coin } from "./models/coin";
+import AppPagination from "./components/AppPagination";
+import AppPerPageInput from "./components/AppPerPageInput";
+import AppHeader from "./components/AppHeader";
+import AppSidebar from "./components/AppSidebar";
 
 function App() {
   const [coins, setCoins] = useState<Array<Coin>>([]);
@@ -9,13 +13,12 @@ function App() {
   const [curPage, setCurPage] = useState(1);
   const [limit, setLimit] = useState(50);
   const [totalPages, setTotalPages] = useState(0);
-  const [inputPage, setInputPage] = useState("");
 
   const baseApiUrl = "https://api.coinranking.com/v2";
 
   useEffect(() => {
     getCoins();
-  }, [curPage]);
+  }, [curPage, limit]);
 
   async function getCoins() {
     try {
@@ -33,7 +36,6 @@ function App() {
       setCoins(result.data.coins);
       setTotal(result.data.stats.total);
       setTotalPages(Math.ceil(result.data.stats.total / limit));
-      setInputPage(curPage.toString());
     } catch (error) {
       console.log(error);
     }
@@ -47,39 +49,42 @@ function App() {
     setCurPage(curPage - 1);
   }
 
-  function handlePageChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const pageNum = event.target.value;
-    setInputPage(pageNum);
+  function handlePageChange(pageNum: number) {
+    setCurPage(pageNum);
   }
 
-  function handlePageChangeSubmit(event: React.KeyboardEvent) {
-    if (event.key === "Enter") {
-      const pageToFetch = parseInt(inputPage);
-      if (pageToFetch > 0 && pageToFetch <= totalPages) setCurPage(pageToFetch);
-    }
+  function handlePerPageSubmit(perPage: number) {
+    setLimit(perPage);
   }
 
   return (
-    <>
-      <main>
-        <AppTable coins={coins} />
+    <div className="wrapper">
+      <AppHeader />
+      <main className="main">
+        <AppSidebar />
+        <div className="main-content">
+          <div className="content-header">
+            <div className="table-actions">
+              <AppPerPageInput perPageSubmit={handlePerPageSubmit} />
+            </div>
+            <h5>Trovati {total} coins</h5>
+          </div>
+          <div className="content-main">
+            <AppTable coins={coins} />
+            <h5>
+              Pagina {curPage} / {totalPages}
+            </h5>
+            <AppPagination
+              curPage={curPage}
+              totalPages={totalPages}
+              curPageChange={handlePageChange}
+              nextClick={handleNextClick}
+              prevClick={handlePrevClick}
+            />
+          </div>
+        </div>
       </main>
-      <h5>
-        Pagina {curPage} / {totalPages}
-      </h5>
-      <button disabled={curPage === 1} onClick={handlePrevClick}>
-        Prev
-      </button>
-      <input
-        onChange={handlePageChange}
-        onKeyUp={handlePageChangeSubmit}
-        type="number"
-        value={inputPage}
-      />
-      <button disabled={curPage === totalPages} onClick={handleNextClick}>
-        Next
-      </button>
-    </>
+    </div>
   );
 }
 
