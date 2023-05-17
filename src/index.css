@@ -105,7 +105,7 @@ a {
 
 /* Content */
 .main-content {
-  flex-grow: 1; 
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
@@ -119,26 +119,110 @@ a {
 }
 
 .content-main {
-    padding: 1rem;
-    overflow-y: auto;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
 .per-page-input {
-    width: 60px;
-    margin-left: 1rem;
+  width: 60px;
+  margin-left: 1rem;
 }
 
 /* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-.icon {
+tr {
+  border-bottom: 1px solid var(--gray-light);
+  display: flex;
+  align-items: center;
+  padding: 0 max((100% - 1200px)/2, 48px);
+}
+
+tr th {
+  text-align: left;
+  width: calc(100% / 3);
+  padding: 1rem 0;
+}
+
+tr th:nth-child(1),
+tr td:nth-child(1) {
+  width: calc(100% / 8 * 3);
+}
+
+tr th:nth-child(2),
+tr td:nth-child(2) {
+  width: calc(100% / 8 * 2);
+}
+
+tr th:nth-child(3),
+tr td:nth-child(3) {
+  width: calc(100% / 8 * 2);
+}
+
+tr th:nth-child(4),
+tr td:nth-child(4) {
+  width: calc(100% / 8 * 1);
+}
+
+tr .coin {
+  display: flex;
+  padding: 1rem 0;
+}
+
+tr .coin .icon {
+  object-fit: contain;
   width: 2rem;
+  margin-right: 1rem;
+}
+
+tr .coin h4 {
+  font-size: 1.2rem;
+}
+
+tr .coin p {
+  font-size: 0.8rem;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  /* background-color: var(--gray); */
+  border-top: 1px solid var(--gray-light);
+}
+
+/* Pagination */
+.pagination button,
+.pagination input {
+  color: var(--white);
+  background-color: transparent;
+  border: 1px solid var(--gray-light);
+  padding: .5rem 1rem;
+}
+
+.pagination button:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination button:last-of-type {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.pagination input {
+  width: 100px;
 }
 
 /* Inputs */
 .form-input {
-    background-color: transparent;
-    color: var(--gray-light);
-    padding: .5rem;
-    border: 1px solid var(--gray-light);
-    border-radius: 5px;
+  background-color: transparent;
+  color: var(--gray-light);
+  padding: 0.5rem;
+  border: 1px solid var(--gray-light);
+  border-radius: 5px;
 }

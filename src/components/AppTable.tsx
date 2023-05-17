@@ -11,16 +11,26 @@ function AppTable({ coins }: TableProps) {
     return columns.map((col, index) => <th key={index}>{col}</th>);
   }
 
+  function formatPrice(price: string) {
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+    return formatter.format(parseFloat(price));
+  }
+
   function printRows() {
     return coins.map((coin) => (
       <tr key={coin.uuid}>
-        <td>
+        <td className="coin">
           <img className="icon" src={coin.iconUrl} alt="" />
-          <h4>{coin.name}</h4>
-          <p>{coin.symbol}</p>
+          <div className="name">
+            <h4>{coin.name}</h4>
+            <p>{coin.symbol}</p>
+          </div>
         </td>
-        <td>{coin.price}</td>
-        <td>{coin.marketCap}</td>
+        <td className="price">{formatPrice(coin.price)}</td>
+        <td className="market-cap">{coin.marketCap}</td>
       </tr>
     ));
   }

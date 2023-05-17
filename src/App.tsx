@@ -71,6 +71,8 @@ function App() {
           </div>
           <div className="content-main">
             <AppTable coins={coins} />
+          </div>
+          <footer>
             <h5>
               Pagina {curPage} / {totalPages}
             </h5>
@@ -81,7 +83,7 @@ function App() {
               nextClick={handleNextClick}
               prevClick={handlePrevClick}
             />
-          </div>
+          </footer>
         </div>
       </main>
     </div>

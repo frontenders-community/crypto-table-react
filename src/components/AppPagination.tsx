@@ -35,7 +35,7 @@ function AppPagination({
   }
 
   return (
-    <>
+    <section className="pagination">
       <button disabled={curPage === 1} onClick={prevClick}>
         Prev
       </button>
@@ -48,7 +48,7 @@ function AppPagination({
       <button disabled={curPage === totalPages} onClick={nextClick}>
         Next
       </button>
-    </>
+    </section>
   );
 }
 
