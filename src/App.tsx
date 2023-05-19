@@ -33,6 +33,8 @@ function App() {
           },
         })
       ).json();
+      console.log(result);
+
       setCoins(result.data.coins);
       setTotal(result.data.stats.total);
       setTotalPages(Math.ceil(result.data.stats.total / limit));
