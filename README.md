@@ -25,5 +25,6 @@ E' consigliato svolgere la challenge con un framework (React, Vue o altro). Per 
 
 ### Preview
 
-https://github.com/frontenders-community/crypto-table-react/assets/56634652/8493ce25-a1ec-46cb-a890-360060dcb494
+
+https://github.com/frontenders-community/crypto-table-react/assets/56634652/ace1853f-de18-4283-8caf-fcbd5645414d
 
