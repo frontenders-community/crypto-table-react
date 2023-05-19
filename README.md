@@ -24,3 +24,6 @@ Per il design abbiamo preso ispirazione da [questo layout](https://dribbble.com/
 E' consigliato svolgere la challenge con un framework (React, Vue o altro). Per l'implementazione dei grafici è stata utilizzata la libreria chart.js.
 
 ### Preview
+
+https://github.com/frontenders-community/crypto-table-react/assets/56634652/8493ce25-a1ec-46cb-a890-360060dcb494
+
