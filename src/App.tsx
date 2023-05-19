@@ -13,18 +13,22 @@ function App() {
   const [curPage, setCurPage] = useState(1);
   const [limit, setLimit] = useState(50);
   const [totalPages, setTotalPages] = useState(0);
+  const [orderBy, setOrderBy] = useState("marketCap");
+  const [orderDirection, setOrderDirection] = useState("desc");
 
   const baseApiUrl = "https://api.coinranking.com/v2";
 
   useEffect(() => {
     getCoins();
-  }, [curPage, limit]);
+  }, [curPage, limit, orderBy, orderDirection]);
 
   async function getCoins() {
     try {
       const params = new URLSearchParams({
         limit: limit.toString(),
         offset: (limit * (curPage - 1)).toString(),
+        orderBy,
+        orderDirection,
       });
       const result = await (
         await fetch(`${baseApiUrl}/coins?${params}`, {
@@ -59,6 +63,16 @@ function App() {
     setLimit(perPage);
   }
 
+  function handleOrderChange(value: string) {
+    if (value !== orderBy) {
+      setOrderBy(value);
+    } else {
+      orderDirection === "desc"
+        ? setOrderDirection("asc")
+        : setOrderDirection("desc");
+    }
+  }
+
   return (
     <div className="wrapper">
       <AppHeader />
@@ -72,7 +86,7 @@ function App() {
             <h5>Trovati {total} coins</h5>
           </div>
           <div className="content-main">
-            <AppTable coins={coins} />
+            <AppTable coins={coins} orderChange={handleOrderChange} orderBy={orderBy} orderDirection={orderDirection}/>
           </div>
           <footer>
             <h5>

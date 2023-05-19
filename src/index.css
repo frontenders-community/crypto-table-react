@@ -141,6 +141,10 @@ tr {
   padding: 0 max((100% - 1200px)/2, 48px);
 }
 
+tr:nth-child(even) {
+  background-color: var(--gray);
+}
+
 tr th {
   text-align: left;
   width: calc(100% / 3);
@@ -186,6 +190,15 @@ tr .coin p {
   font-size: 0.8rem;
 }
 
+th .col-icon {
+  margin: 0 0.4rem;
+  cursor: pointer;
+}
+
+th .col-icon.active {
+  color: var(--secondary);
+}
+
 /* Footer */
 footer {
   display: flex;
@@ -201,7 +214,7 @@ footer {
   color: var(--white);
   background-color: transparent;
   border: 1px solid var(--gray-light);
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
 

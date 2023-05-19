@@ -5,13 +5,66 @@ import LineChart from "./LineChart";
 
 type TableProps = {
   coins: Array<Coin>;
+  orderBy: string;
+  orderDirection: string;
+  orderChange: (colName: string) => void;
 };
 
-function AppTable({ coins }: TableProps) {
-  const columns: Array<string> = ["Coins", "Price", "Market cap", "24h"];
+type Column = {
+  title: string;
+  key: string;
+  orderable: boolean;
+};
+
+function AppTable({ coins, orderChange, orderBy, orderDirection }: TableProps) {
+  const columns: Array<Column> = [
+    {
+      title: "Coins",
+      key: "coin",
+      orderable: false,
+    },
+    {
+      title: "Price",
+      key: "price",
+      orderable: true,
+    },
+    {
+      title: "Market cap",
+      key: "marketCap",
+      orderable: true,
+    },
+    {
+      title: "24h",
+      key: "change",
+      orderable: true,
+    },
+  ];
+
+  function printHeaderIcon(col: Column) {
+    const iconClass = `
+    col-icon 
+    fa-solid 
+    ${col.key === orderBy && "active"}
+    ${
+      col.key === orderBy && orderDirection === "desc"
+        ? "fa-arrow-down-wide-short"
+        : "fa-arrow-up-wide-short"
+    }
+    `;
+    return (
+      col.orderable && (
+        <i className={iconClass} onClick={() => orderChange(col.key)}></i>
+      )
+    );
+  }
 
   function printHeadColumns() {
-    return columns.map((col, index) => <th key={index}>{col}</th>);
+    return columns.map((col: Column, index) => (
+      <th key={index}>
+        <span>{col.title}</span>
+        {printHeaderIcon(col)}
+      </th>
+    ));
   }
 
   function formatPrice(price: string) {
