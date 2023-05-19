@@ -8,27 +8,29 @@ import AppHeader from "./components/AppHeader";
 import AppSidebar from "./components/AppSidebar";
 
 function App() {
-  const [coins, setCoins] = useState<Array<Coin>>([]);
-  const [total, setTotal] = useState(0);
-  const [curPage, setCurPage] = useState(1);
-  const [limit, setLimit] = useState(50);
-  const [totalPages, setTotalPages] = useState(0);
-  const [orderBy, setOrderBy] = useState("marketCap");
-  const [orderDirection, setOrderDirection] = useState("desc");
+  const [state, setState] = useState({
+    coins: [],
+    total: 0,
+    curPage: 1,
+    limit: 50,
+    totalPages: 0,
+    orderBy: "marketCap",
+    orderDirection: "desc",
+  });
 
   const baseApiUrl = "https://api.coinranking.com/v2";
 
   useEffect(() => {
     getCoins();
-  }, [curPage, limit, orderBy, orderDirection]);
+  }, [state.curPage, state.limit, state.orderBy, state.orderDirection]);
 
   async function getCoins() {
     try {
       const params = new URLSearchParams({
-        limit: limit.toString(),
-        offset: (limit * (curPage - 1)).toString(),
-        orderBy,
-        orderDirection,
+        limit: state.limit.toString(),
+        offset: (state.limit * (state.curPage - 1)).toString(),
+        orderBy: state.orderBy,
+        orderDirection: state.orderDirection,
       });
       const result = await (
         await fetch(`${baseApiUrl}/coins?${params}`, {
@@ -39,37 +41,58 @@ function App() {
       ).json();
       console.log(result);
 
-      setCoins(result.data.coins);
-      setTotal(result.data.stats.total);
-      setTotalPages(Math.ceil(result.data.stats.total / limit));
+      const totalPages = Math.ceil(result.data.stats.total / state.limit);
+
+      setState({
+        ...state,
+        coins: result.data.coins,
+        total: result.data.stats.total,
+        totalPages,
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
   function handleNextClick() {
-    setCurPage(curPage + 1);
+    setState({
+      ...state,
+      curPage: state.curPage + 1,
+    });
   }
 
   function handlePrevClick() {
-    setCurPage(curPage - 1);
+    setState({
+      ...state,
+      curPage: state.curPage - 1,
+    });
   }
 
   function handlePageChange(pageNum: number) {
-    setCurPage(pageNum);
+    setState({
+      ...state,
+      curPage: pageNum,
+    });
   }
 
   function handlePerPageSubmit(perPage: number) {
-    setLimit(perPage);
+    setState({
+      ...state,
+      limit: perPage,
+    });
   }
 
   function handleOrderChange(value: string) {
-    if (value !== orderBy) {
-      setOrderBy(value);
+    if (value !== state.orderBy) {
+      setState({
+        ...state,
+        orderBy: value,
+      });
     } else {
-      orderDirection === "desc"
-        ? setOrderDirection("asc")
-        : setOrderDirection("desc");
+      setState({
+        ...state,
+        orderDirection: state.orderDirection === "desc" ? "asc" : "desc",
+      });
     }
   }
 
@@ -83,18 +106,23 @@ function App() {
             <div className="table-actions">
               <AppPerPageInput perPageSubmit={handlePerPageSubmit} />
             </div>
-            <h5>Trovati {total} coins</h5>
+            <h5>Trovati {state.total} coins</h5>
           </div>
           <div className="content-main">
-            <AppTable coins={coins} orderChange={handleOrderChange} orderBy={orderBy} orderDirection={orderDirection}/>
+            <AppTable
+              coins={state.coins}
+              orderChange={handleOrderChange}
+              orderBy={state.orderBy}
+              orderDirection={state.orderDirection}
+            />
           </div>
           <footer>
             <h5>
-              Pagina {curPage} / {totalPages}
+              Pagina {state.curPage} / {state.totalPages}
             </h5>
             <AppPagination
-              curPage={curPage}
-              totalPages={totalPages}
+              curPage={state.curPage}
+              totalPages={state.totalPages}
               curPageChange={handlePageChange}
               nextClick={handleNextClick}
               prevClick={handlePrevClick}
