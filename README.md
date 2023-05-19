@@ -2,15 +2,16 @@
 
 ## Challenge #13 - Crypto Data Table
 
-Questa challenge implementa una pagina di un'ipotetica dashboard per l'amministrazione dell criptovalute.
+Questa challenge implementa una pagina di un'ipotetica dashboard per l'amministrazione delle criptovalute.
 Il focus principale è quello di lavorare con dati tabellari e implementare delle funzionalità base di una tabella:
 
 - visualizzazione di dati;
 - paginazione (spostamento tra le pagine, visualizzazione della pagina corrente, modifica di elementi per pagina);
-- possibilità di ordinare i dati per una colonna in modo crescente / decrescente.
+- possibilità di ordinare dati per colonna in modo crescente / decrescente.
 
-Per i dati delle criptovalute potete utilizzare [API di coderanking](https://developers.coinranking.com/api/documentation).
-Per acceder all'API avete bisogno di una chiave, quindi dovete creare l'account gratuito. Potrebbe capitare che le chiamate API vengono bloccate perchè raggiungete un limite di richieste, ma non vi preoccupate, basterà aspettare un'attimo e sarà possibile di inviare di nuovo le richieste.
+Per i dati delle criptovalute abbiamo utilizzato [API di coderanking](https://developers.coinranking.com/api/documentation).
+Per accedere all'API avete bisogno di una chiave, quindi dovete creare l'account gratuito. 
+Mentre testate la vostra app potrebbe capitare che le chiamate API vengono bloccate perchè raggiungete il limite di richieste. Ma non vi preoccupate, basterà aspettare un'attimo e sarà possibile di inviare di nuovo le richieste.
 
 Per il design abbiamo preso ispirazione da [questo layout](https://dribbble.com/shots/4957976-Nodes-Dark-mode/attachments/10693224?mode=media) di Georgy Pashkov.
 
